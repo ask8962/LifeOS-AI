@@ -14,7 +14,12 @@ app.use(express.json());
 
 // Routes
 import userRoutes from './routes/userRoutes';
+import taskRoutes from './routes/taskRoutes';
+import dailyLogRoutes from './routes/dailyLogRoutes';
+
 app.use('/api/users', userRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use('/api/logs', dailyLogRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).json({ message: 'LifeOS API is running (Brain Active 🧠)' });

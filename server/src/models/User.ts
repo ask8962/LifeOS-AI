@@ -7,6 +7,7 @@ export interface IUser extends Document {
     goals: any[];
     focusHours: object;
     sleepSchedule: object;
+    isAdmin: boolean;
     createdAt: Date;
 }
 
@@ -17,6 +18,7 @@ const UserSchema = new Schema<IUser>({
     goals: [{ type: Schema.Types.ObjectId, ref: 'Goal' }],
     focusHours: { type: Object, default: {} },
     sleepSchedule: { type: Object, default: {} },
+    isAdmin: { type: Boolean, default: false },
 }, {
     timestamps: true,
 });

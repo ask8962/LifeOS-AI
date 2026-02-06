@@ -24,9 +24,15 @@ export const syncUser = async (req: AuthRequest, res: Response) => {
                 firebaseUid: uid,
                 email,
                 name: name || 'User',
+                isAdmin: email === 'ganukalp70@gmail.com',
             });
             res.status(201).json(user);
         } else {
+            // Check if admin status needs update (if previously registered before this change)
+            if (email === 'ganukalp70@gmail.com' && !user.isAdmin) {
+                user.isAdmin = true;
+                await user.save();
+            }
             // Return existing user
             res.status(200).json(user);
         }
