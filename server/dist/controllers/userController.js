@@ -33,10 +33,16 @@ const syncUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 firebaseUid: uid,
                 email,
                 name: name || 'User',
+                isAdmin: email === 'ganukalp70@gmail.com',
             });
             res.status(201).json(user);
         }
         else {
+            // Check if admin status needs update (if previously registered before this change)
+            if (email === 'ganukalp70@gmail.com' && !user.isAdmin) {
+                user.isAdmin = true;
+                yield user.save();
+            }
             // Return existing user
             res.status(200).json(user);
         }

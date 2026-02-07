@@ -34,15 +34,23 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    firebaseUid: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    goals: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Goal' }],
-    focusHours: { type: Object, default: {} },
-    sleepSchedule: { type: Object, default: {} },
-    isAdmin: { type: Boolean, default: false },
-}, {
-    timestamps: true,
-});
-exports.default = mongoose_1.default.model('User', UserSchema);
+const DailyLogSchema = new mongoose_1.Schema({
+    user: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    date: { type: String, required: true }, // Index for fast lookup
+    sleepHours: { type: Number },
+    studyHours: { type: Number },
+    mood: {
+        type: String,
+        enum: ['great', 'good', 'neutral', 'bad', 'terrible']
+    },
+    energyLevel: {
+        type: String,
+        enum: ['high', 'medium', 'low']
+    },
+    notes: { type: String },
+    tasksCompleted: { type: Number, default: 0 },
+    habitsCompleted: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Habit' }],
+}, { timestamps: true });
+// Ensure one log per user per day
+DailyLogSchema.index({ user: 1, date: 1 }, { unique: true });
+exports.default = mongoose_1.default.model('DailyLog', DailyLogSchema);

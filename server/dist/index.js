@@ -24,7 +24,15 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 // Routes
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const taskRoutes_1 = __importDefault(require("./routes/taskRoutes"));
+const dailyLogRoutes_1 = __importDefault(require("./routes/dailyLogRoutes"));
+const analyticsRoutes_1 = __importDefault(require("./routes/analyticsRoutes"));
+const insightsRoutes_1 = __importDefault(require("./routes/insightsRoutes"));
 app.use('/api/users', userRoutes_1.default);
+app.use('/api/tasks', taskRoutes_1.default);
+app.use('/api/logs', dailyLogRoutes_1.default);
+app.use('/api/analytics', analyticsRoutes_1.default);
+app.use('/api/insights', insightsRoutes_1.default);
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'LifeOS API is running (Brain Active 🧠)' });
 });

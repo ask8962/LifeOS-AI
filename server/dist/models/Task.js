@@ -34,15 +34,19 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    firebaseUid: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    goals: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Goal' }],
-    focusHours: { type: Object, default: {} },
-    sleepSchedule: { type: Object, default: {} },
-    isAdmin: { type: Boolean, default: false },
-}, {
-    timestamps: true,
-});
-exports.default = mongoose_1.default.model('User', UserSchema);
+const TaskSchema = new mongoose_1.Schema({
+    user: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    title: { type: String, required: true },
+    description: { type: String },
+    duration: { type: Number },
+    completed: { type: Boolean, default: false },
+    completedAt: { type: Date },
+    priority: {
+        type: String,
+        enum: ['low', 'medium', 'high'],
+        default: 'medium'
+    },
+    scheduledFor: { type: Date, default: Date.now },
+    goal: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Goal' },
+}, { timestamps: true });
+exports.default = mongoose_1.default.model('Task', TaskSchema);
