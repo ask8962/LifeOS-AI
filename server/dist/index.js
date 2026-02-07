@@ -28,11 +28,13 @@ const taskRoutes_1 = __importDefault(require("./routes/taskRoutes"));
 const dailyLogRoutes_1 = __importDefault(require("./routes/dailyLogRoutes"));
 const analyticsRoutes_1 = __importDefault(require("./routes/analyticsRoutes"));
 const insightsRoutes_1 = __importDefault(require("./routes/insightsRoutes"));
+const optimizationRoutes_1 = __importDefault(require("./routes/optimizationRoutes"));
 app.use('/api/users', userRoutes_1.default);
 app.use('/api/tasks', taskRoutes_1.default);
 app.use('/api/logs', dailyLogRoutes_1.default);
 app.use('/api/analytics', analyticsRoutes_1.default);
 app.use('/api/insights', insightsRoutes_1.default);
+app.use('/api/optimize', optimizationRoutes_1.default);
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'LifeOS API is running (Brain Active 🧠)' });
 });

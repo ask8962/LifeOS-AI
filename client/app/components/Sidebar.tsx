@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  Target, 
-  BarChart2, 
-  Settings, 
+import {
+  LayoutDashboard,
+  BookOpen,
+  Target,
+  BarChart2,
+  Settings,
   Zap,
+  Sparkles,
   LogOut
 } from "lucide-react";
 
@@ -17,6 +18,7 @@ const menuItems = [
   { icon: BookOpen, label: "Journal", href: "/journal" },
   { icon: Target, label: "Goals", href: "/goals" },
   { icon: BarChart2, label: "Analytics", href: "/analytics" },
+  { icon: Sparkles, label: "Optimize", href: "/optimize" },
   { icon: Zap, label: "Focus Mode", href: "/focus" },
 ];
 
@@ -40,11 +42,10 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
-                isActive
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${isActive
                   ? "bg-indigo-50 text-indigo-600 shadow-sm"
                   : "text-gray-700 hover:bg-gray-100/80 hover:text-indigo-600"
-              }`}
+                }`}
             >
               <Icon className={`h-5 w-5 ${isActive ? "text-indigo-600" : "text-gray-400"}`} />
               {item.label}
